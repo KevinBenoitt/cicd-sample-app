@@ -6,9 +6,9 @@ if [ ! -d "tempdir" ]; then
     mkdir tempdir/templates
     mkdir tempdir/static
 
-    cp sample_app.py tempdir/.
-    cp -r templates/* tempdir/templates/.
-    cp -r static/* tempdir/static/.
+    cp "sample_app.py" "tempdir/"
+    cp -r "templates/"* "tempdir/templates/"
+    cp -r "static/"* "tempdir/static/"
 
     cat > tempdir/Dockerfile << _EOF_
     FROM python
