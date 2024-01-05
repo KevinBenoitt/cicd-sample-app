@@ -18,7 +18,7 @@ if [ ! -d "tempdir" ]; then
     COPY  sample_app.py /home/myapp/
     EXPOSE 5050
     CMD python /home/myapp/sample_app.py
-    _EOF_
+_EOF_
 fi
 
 cd tempdir || exit
