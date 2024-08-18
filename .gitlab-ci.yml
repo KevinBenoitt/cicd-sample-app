@@ -4,9 +4,6 @@ stages:
   - build
   - test
 
-variables:
-  GIT_REPO_URL: "https://github.com/KevinBenoitt/cicd-sample-app.git"
-  CLONE_DIR: "cicd-sample-app"
 
 cleanup:
   stage: cleanup
