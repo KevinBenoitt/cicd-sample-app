@@ -7,13 +7,7 @@ variables:
   GIT_REPO_URL: "https://$GITHUB_TOKEN@github.com/KevinBenoitt/cicd-sample-app.git"
   CLONE_DIR: "sample-app"
 
-cleanup:
-  stage: cleanup
-  script:
-    - docker stop samplerunning || true
-    - docker rm samplerunning || true
-  tags:
-    - docker
+
 
 build_sample_app:
   stage: build
