@@ -1,0 +1,30 @@
+# .gitlab-ci.yml
+stages:
+  - cleanup
+  - build
+  - test
+
+# Job to clean up previous containers
+cleanup:
+  stage: cleanup
+  script:
+    - docker stop samplerunning || true  # Stop de container als deze draait
+    - docker rm samplerunning || true    # Verwijder de container als deze bestaat
+  tags:
+    - docker
+
+# Job to build the sample app
+build_sample_app:
+  stage: build
+  script:
+    - bash ./sample-app.sh  # Voer het build script uit
+  tags:
+    - docker
+
+# Job to test the sample app
+test_sample_app:
+  stage: test
+  script:
+    - curl http://172.17.0.3:5050/ | grep "You are calling me from 172.17.0.2"  # Voer de test uit
+  tags:
+    - docker
