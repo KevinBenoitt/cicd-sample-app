@@ -1,12 +1,10 @@
-image: gitlab/gitlab-ce:latest
-
 stages:
   - cleanup
   - build
   - test
 
 variables:
-  GIT_REPO_URL: "https://$GITHUB_TOKEN@github.com/KevinBenoitt/cicd-sample-app.git"
+  GITHUB_REPO_URL: "https://raw.githubusercontent.com/KevinBenoitt/cicd-sample-app/main"
   CLONE_DIR: "sample-app"
 
 cleanup:
@@ -20,8 +18,9 @@ cleanup:
 build_sample_app:
   stage: build
   script:
-    - git clone $GIT_REPO_URL $CLONE_DIR
+    - mkdir -p $CLONE_DIR
     - cd $CLONE_DIR
+    - curl -O $GITHUB_REPO_URL/sample-app.sh
     - bash ./sample-app.sh
   tags:
     - shared
