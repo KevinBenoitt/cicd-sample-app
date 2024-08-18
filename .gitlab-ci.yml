@@ -1,5 +1,5 @@
 stages:
-  - cleanup
+  
   - build
   - test
 
@@ -8,13 +8,7 @@ variables:
   CLONE_DIR: "sample-app"
 
 
-cleanup:
-  stage: cleanup
-  script:
-    - docker stop samplerunning || true
-    - docker rm samplerunning || true
-  tags:
-    - shared
+
 build_sample_app:
   stage: build
   script:
