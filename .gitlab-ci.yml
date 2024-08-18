@@ -4,27 +4,31 @@ stages:
   - build
   - test
 
-# Job to clean up previous containers
+variables:
+  GIT_REPO_URL: "https://github.com/KevinBenoitt/cicd-sample-app.git"
+  CLONE_DIR: "cicd-sample-app"
+
 cleanup:
   stage: cleanup
   script:
-    - docker stop samplerunning || true  # Stop de container als deze draait
-    - docker rm samplerunning || true    # Verwijder de container als deze bestaat
+    - docker stop samplerunning || true
+    - docker rm samplerunning || true
   tags:
     - docker
 
-# Job to build the sample app
 build_sample_app:
   stage: build
   script:
-    - bash ./sample-app.sh  # Voer het build script uit
+    - git clone $GIT_REPO_URL $CLONE_DIR
+    - cd $CLONE_DIR
+    - bash ./sample-app.sh
   tags:
     - docker
 
-# Job to test the sample app
 test_sample_app:
   stage: test
   script:
-    - curl http://172.17.0.3:5050/ | grep "You are calling me from 172.17.0.2"  # Voer de test uit
+    - cd $CLONE_DIR
+    - curl http://172.17.0.3:5050/ | grep "You are calling me from 172.17.0.2"
   tags:
     - docker
