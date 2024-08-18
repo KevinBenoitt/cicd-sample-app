@@ -8,7 +8,13 @@ variables:
   CLONE_DIR: "sample-app"
 
 
-
+cleanup:
+  stage: cleanup
+  script:
+    - docker stop samplerunning || true
+    - docker rm samplerunning || true
+  tags:
+    - shared
 build_sample_app:
   stage: build
   script:
@@ -16,7 +22,7 @@ build_sample_app:
     - cd $CLONE_DIR
     - bash ./sample-app.sh
   tags:
-    - docker
+    - shared
 
 test_sample_app:
   stage: test
@@ -24,4 +30,4 @@ test_sample_app:
     - cd $CLONE_DIR
     - curl http://172.17.0.3:5050/ | grep "You are calling me from 172.17.0.2"
   tags:
-    - docker
+    - shared
