@@ -1,3 +1,5 @@
+image: gitlab/gitlab-ce:latest
+
 stages:
   - cleanup
   - build
